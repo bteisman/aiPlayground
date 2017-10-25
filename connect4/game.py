@@ -73,27 +73,30 @@ def winner(color, red, blue, board):
         return red + "(red)"
     return blue + "(blue)"
 
+#finds winner name based on color for ai game
+def winnerMultiple(color, red, blue, board):
+    if color == board.red:
+        return red
+    return blue
+
 #ai playable version of connect 4, can change ai in player 1 and player 2
 def ai():
-    #default board
-    b = board(6, 7)
-
     #player 1, color red, must have function ai(board)
-    one = human()
-    red = "human"
+    one = randobot()
+    red = "randobot"
 
     #player 2, color blue, must have function ai(board)
     two = easy()
     blue = "easy"
+
+    #default board
+    b = board(6, 7)
 
     #variables that change throughout game
     player = one
     color = b.red
 
     while not b.gameOver:
-        print ""
-        b.printBoard()
-        print ""
         b.updateBoard(player.ai(b), color)
         b.checkGame()
         update = changePlayer(player, one, two, b)
@@ -103,8 +106,47 @@ def ai():
     b.printBoard()
     print winner(b.winner, red, blue, b) + " WINS!!"
 
+#ai playable version of connect 4, can change ai in player 1 and player 2, numGames for how many games to be played
+def aiMultipleGames(numGames):
+    #player 1, color red, must have function ai(board)
+    one = randobot()
+    red = "randobot"
 
+    #player 2, color blue, must have function ai(board)
+    two = easy()
+    blue = "easy"
+
+    count = 0
+    oneCount = 0
+    twoCount = 0
+
+    while count < numGames:
+        #default board
+        b = board(6, 7)
+
+        #variables that change throughout game
+        player = one
+        color = b.red
+
+        while not b.gameOver:
+            b.updateBoard(player.ai(b), color)
+            b.checkGame()
+            update = changePlayer(player, one, two, b)
+            player = update[0]
+            color = update[1]
+
+        win = winnerMultiple(b.winner, red, blue, b)
+        if win == red:
+            oneCount += 1
+        else:
+            twoCount += 1
+        count += 1
+
+    #print total wins by each
+    print "Total Wins:"
+    print red + ": " + str(oneCount)
+    print blue + ": " + str(twoCount)
 
 #main
-ai()
+aiMultipleGames(1000)
 
