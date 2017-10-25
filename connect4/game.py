@@ -1,7 +1,9 @@
 from board import board
-import randobot
-import easy
+from randobot import randobot
+from human import human
+from easy import easy
 import sys
+#Must import bots here
 
 #OTHER POSSIBLE GAMES: Checkers
 
@@ -77,11 +79,11 @@ def ai():
     b = board(6, 7)
 
     #player 1, color red, must have function ai(board)
-    one = randobot.randobot()
-    red = "randobot"
+    one = human()
+    red = "human"
 
     #player 2, color blue, must have function ai(board)
-    two = easy.easy()
+    two = easy()
     blue = "easy"
 
     #variables that change throughout game
@@ -89,6 +91,9 @@ def ai():
     color = b.red
 
     while not b.gameOver:
+        print ""
+        b.printBoard()
+        print ""
         b.updateBoard(player.ai(b), color)
         b.checkGame()
         update = changePlayer(player, one, two, b)
