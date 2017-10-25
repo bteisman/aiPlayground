@@ -2,10 +2,12 @@ from board import board
 from random import randint
 
 '''
+
 Easy ai
 
 Only checks for possible three in a row combinations and returns that col to put disk in, doesn't check if that would stop 4 in a row
-Otherwise chooses random col
+Otherwise chooses random col, no offensive strategy
+
 '''
 class easy:
     def ai(self, board):
