@@ -9,4 +9,4 @@ How to run:
  - Python file must have function called ai(args) so player acts as an abstract class
 
 Games so far:
- - Connect 4
+ - Connect 4(Currently no good ai, just tests)
