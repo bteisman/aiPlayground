@@ -18,3 +18,9 @@ Connect 4 stats:
  - First: Medium, Second: Easy - 59.0% Medium
  - First: Easy, Second: Random - 96.3% Easy
  - First: Easy, Second: Medium - 56.1% Easy
+ - First: Medium, Second: Medium Prime - 62.9% Medium Prime
+ - First: Medium Prime, Second: Medium - 95.9% Medium Prime
+ - First: Medium Prime, Second: Easy - 69.0% Medium Prime
+ - First: Easy, Second: Medium Prime - 59.6% Medium Prime
+ - First: Random, Second: Medium Prime - 98.9% Medium Prime
+ - First: Medium Prime, Second: Random - 99.6% Medium Prime

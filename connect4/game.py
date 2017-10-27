@@ -3,6 +3,7 @@ from randobot import randobot
 from human import human
 from easy import easy
 from medium import medium
+from mediumPrime import mediumPrime
 import sys
 #Must import bots here
 
@@ -110,12 +111,12 @@ def ai():
 #ai playable version of connect 4, can change ai in player 1 and player 2, numGames for how many games to be played
 def aiMultipleGames(numGames):
     #player 1, color red, must have function ai(board)
-    one = medium()
-    red = "medium"
+    one = mediumPrime()
+    red = "mediumPrime"
 
     #player 2, color blue, must have function ai(board)
-    two = easy()
-    blue = "easy"
+    two = randobot()
+    blue = "randobot"
 
     count = 0
     oneCount = 0
