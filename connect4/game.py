@@ -4,6 +4,7 @@ from human import human
 from easy import easy
 from medium import medium
 from mediumPrime import mediumPrime
+from mediumThreat import mediumThreat
 import sys
 #Must import bots here
 
@@ -111,12 +112,12 @@ def ai():
 #ai playable version of connect 4, can change ai in player 1 and player 2, numGames for how many games to be played
 def aiMultipleGames(numGames):
     #player 1, color red, must have function ai(board)
-    one = mediumPrime()
-    red = "mediumPrime"
+    one = randobot()
+    red = "medium"
 
     #player 2, color blue, must have function ai(board)
-    two = randobot()
-    blue = "randobot"
+    two = mediumThreat()
+    blue = "threat"
 
     count = 0
     oneCount = 0
@@ -149,7 +150,95 @@ def aiMultipleGames(numGames):
     print red + ": " + str(oneCount)
     print blue + ": " + str(twoCount)
 
+
+#average win percentage by one bot against all others
+def gauntlet(t, numGames):
+    l = []
+
+    #add bots here -----------------------------------
+    r = randobot()
+    if t != "randobot":
+        l.append(r)
+    e = easy()
+    if t != "easy":
+        l.append(e)
+    m = medium()
+    if t != "medium":
+        l.append(m)
+    mp = mediumPrime()
+    if t != "mediumPrime":
+        l.append(mp)
+    mt = mediumThreat()
+    if t != "mediumThreat":
+        l.append(mt)
+
+    totalWins = 0
+    totalLosses = 0
+
+    for i in l:
+        #player 1, color red, must have function ai(board)
+        one = i
+
+        #change this based off type of gauntlet--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        two = randobot()
+
+        count = 0
+
+        while count < numGames:
+            #default board
+            b = board(6, 7)
+
+            #variables that change throughout game
+            player = one
+            color = b.red
+
+            while not b.gameOver:
+                b.updateBoard(player.ai(b, color), color)
+                b.checkGame()
+                update = changePlayer(player, one, two, b)
+                player = update[0]
+                color = update[1]
+
+            if b.winner == b.red:
+                totalLosses += 1
+            elif b.winner == b.blue:
+                totalWins += 1
+            count += 1
+
+    for i in l:
+        #player 1, color red, must have function ai(board)
+        two = i
+
+        #change this based off type of gauntlet------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        one = randobot()
+
+        count = 0
+
+        while count < numGames:
+            #default board
+            b = board(6, 7)
+
+            #variables that change throughout game
+            player = one
+            color = b.red
+
+            while not b.gameOver:
+                b.updateBoard(player.ai(b, color), color)
+                b.checkGame()
+                update = changePlayer(player, one, two, b)
+                player = update[0]
+                color = update[1]
+
+            if b.winner == b.red:
+                totalWins += 1
+            elif b.winner == b.blue:
+                totalLosses += 1
+            count += 1
+
+    print "Gauntlet total for " + t + ": " + str(round(float(float(totalWins) / float(totalWins + totalLosses)), 4) * 100) + "% win percentage"
+
 #main
-aiMultipleGames(10000)
+#aiMultipleGames(1000)
 #ai()
+gauntlet("randobot", 1000)
 

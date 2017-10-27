@@ -12,15 +12,8 @@ Games so far:
  - Connect 4
 
 Connect 4 stats:
- - First: Random, Second: Easy - 93.8% Easy
- - First: Random, Second: Medium - 96.6% Medium
- - First: Medium, Second: Random - 98.9% Medium
- - First: Medium, Second: Easy - 59.0% Medium
- - First: Easy, Second: Random - 96.3% Easy
- - First: Easy, Second: Medium - 56.1% Easy
- - First: Medium, Second: Medium Prime - 62.9% Medium Prime
- - First: Medium Prime, Second: Medium - 95.9% Medium Prime
- - First: Medium Prime, Second: Easy - 69.0% Medium Prime
- - First: Easy, Second: Medium Prime - 59.6% Medium Prime
- - First: Random, Second: Medium Prime - 98.9% Medium Prime
- - First: Medium Prime, Second: Random - 99.6% Medium Prime
+- Medium Threat: 83.30% win
+- Medium Prime: 69.36% win
+- Easy: 51.15% win
+- Medium: 45.19% win
+- Random: 1.31% win
