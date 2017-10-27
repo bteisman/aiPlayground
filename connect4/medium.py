@@ -116,6 +116,8 @@ class medium:
 
     #finds vertical num in a row
     def vertical(self, board, row, col, num, c):
+        if row < 0:
+            return False
         if row + num >= board.rowSize:
             return False
         color = board.b[row+1][col]

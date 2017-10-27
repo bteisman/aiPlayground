@@ -9,4 +9,12 @@ How to run:
  - Python file must have function called ai(args) so player acts as an abstract class
 
 Games so far:
- - Connect 4(Currently no good ai, just tests)
+ - Connect 4
+
+Connect 4 stats:
+ - First: Random, Second: Easy - 93.8% Easy
+ - First: Random, Second: Medium - 96.6% Medium
+ - First: Medium, Second: Random - 98.9% Medium
+ - First: Medium, Second: Easy - 59.0% Medium
+ - First: Easy, Second: Random - 96.3% Easy
+ - First: Easy, Second: Medium - 56.1% Easy

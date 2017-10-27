@@ -110,12 +110,12 @@ def ai():
 #ai playable version of connect 4, can change ai in player 1 and player 2, numGames for how many games to be played
 def aiMultipleGames(numGames):
     #player 1, color red, must have function ai(board)
-    one = randobot()
-    red = "randobot"
+    one = medium()
+    red = "medium"
 
     #player 2, color blue, must have function ai(board)
-    two = medium()
-    blue = "medium"
+    two = easy()
+    blue = "easy"
 
     count = 0
     oneCount = 0
@@ -139,7 +139,7 @@ def aiMultipleGames(numGames):
         win = winnerMultiple(b.winner, red, blue, b)
         if win == red:
             oneCount += 1
-        else:
+        elif win == blue:
             twoCount += 1
         count += 1
 
@@ -149,6 +149,6 @@ def aiMultipleGames(numGames):
     print blue + ": " + str(twoCount)
 
 #main
-aiMultipleGames(1000)
+aiMultipleGames(10000)
 #ai()
 
