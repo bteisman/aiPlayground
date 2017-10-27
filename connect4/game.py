@@ -2,6 +2,7 @@ from board import board
 from randobot import randobot
 from human import human
 from easy import easy
+from medium import medium
 import sys
 #Must import bots here
 
@@ -86,8 +87,8 @@ def ai():
     red = "randobot"
 
     #player 2, color blue, must have function ai(board)
-    two = easy()
-    blue = "easy"
+    two = medium()
+    blue = "medium"
 
     #default board
     b = board(6, 7)
@@ -97,7 +98,7 @@ def ai():
     color = b.red
 
     while not b.gameOver:
-        b.updateBoard(player.ai(b), color)
+        b.updateBoard(player.ai(b, color), color)
         b.checkGame()
         update = changePlayer(player, one, two, b)
         player = update[0]
@@ -113,8 +114,8 @@ def aiMultipleGames(numGames):
     red = "randobot"
 
     #player 2, color blue, must have function ai(board)
-    two = easy()
-    blue = "easy"
+    two = medium()
+    blue = "medium"
 
     count = 0
     oneCount = 0
@@ -129,7 +130,7 @@ def aiMultipleGames(numGames):
         color = b.red
 
         while not b.gameOver:
-            b.updateBoard(player.ai(b), color)
+            b.updateBoard(player.ai(b, color), color)
             b.checkGame()
             update = changePlayer(player, one, two, b)
             player = update[0]
@@ -149,4 +150,5 @@ def aiMultipleGames(numGames):
 
 #main
 aiMultipleGames(1000)
+#ai()
 

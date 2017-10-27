@@ -3,18 +3,38 @@ from random import randint
 
 '''
 
-Easy ai
-
-Only checks for possible three in a row combinations and returns that col to put disk in, doesn't check if that would stop 4 in a row
-Otherwise chooses random col, no offensive strategy
+Medium ai
 
 '''
-class easy:
+class medium:
     def ai(self, board, color):
+        #finds valid locations
         locations = self.validLocations(board)
-        pos = self.findThree(board, locations)
+
+        #find three any color three in a row
+        pos = self.findLength(board, locations, 3, color)
         if pos != -1:
             return pos
+
+        #find two in a row of your color
+        pos = self.findLength(board, locations, 2, color)
+        if pos != -1:
+            return pos
+
+        #find one in a row of your color
+        pos = self.findLength(board, locations, 1, color)
+        if pos != -1:
+            return pos
+
+        #find two in a row of other color
+        if color == board.red:
+            c = board.blue
+        else:
+            c = board.red
+        pos = self.findLength(board, locations, 2, c)
+        if pos != -1:
+            return pos
+
         #returns random col from valid locations on board
         return locations[randint(0, len(locations)-1)][1]
 
@@ -37,14 +57,14 @@ class easy:
 #Finds three in a row spots-------------------------------------------------------------------------------------------------------------------
 
     #finds if possible winner or stop opponent from winning
-    def findThree(self,board,locations):
+    def findLength(self,board,locations,length,color):
         for i in locations:
-            if self.vertical(board, i[0], i[1], 3): #or self.diagonalLeft(board, i[0], i[1], 3) or self.diagonalRight(board, i[0], i[1], 3):
+            if self.vertical(board, i[0], i[1], length, color): #or self.diagonalLeft(board, i[0], i[1], 3) or self.diagonalRight(board, i[0], i[1], 3):
                 #return col
                 return i[1]
-            h = self.horizontal(board, i[0], i[1], 3)
-            dl = self.diagonalLeft(board, i[0], i[1], 3)
-            dr = self.diagonalRight(board, i[0], i[1], 3)
+            h = self.horizontal(board, i[0], i[1], length, color)
+            dl = self.diagonalLeft(board, i[0], i[1], length, color)
+            dr = self.diagonalRight(board, i[0], i[1], length, color)
             if h[0]:
                 return h[1]
             if dl[0]:
@@ -53,13 +73,14 @@ class easy:
                 return dr[1]
         return -1
 
+
 #Horizontal checks-------------------------------------------------------------------------------------------------------------------
 
     #finds horizontal num in a row
-    def horizontal(self, board, row, col, num):
+    def horizontal(self, board, row, col, num, color):
         for i in range(3, -4, -1):
             if col+i >= 0 and col+i < board.colSize:
-                if self.horizontalCheck(board, row, col+i, num):
+                if self.horizontalCheck(board, row, col+i, num, color):
                     return [True, self.horizontalFindBlank(board, row, col+i)]
         return [False, -1]
 
@@ -69,7 +90,8 @@ class easy:
                 return i
         return -1
 
-    def horizontalCheck(self, board, row, col, num):
+    #color as board.blank for either color count of num
+    def horizontalCheck(self, board, row, col, num, color):
         if col + 3 >= board.colSize:
             return False
         blankC = 0
@@ -83,15 +105,17 @@ class easy:
             else:
                 blueC += 1
         if redC >= num and blueC == 0:
-            return True
+            if color == board.blank or color == board.red:
+                return True
         if blueC >= num and redC == 0:
-            return True
+            if color == board.blank or color == board.blue:
+                return True
         return False
 
 #Vertical checks-------------------------------------------------------------------------------------------------------------------
 
     #finds vertical num in a row
-    def vertical(self, board, row, col, num):
+    def vertical(self, board, row, col, num, c):
         if row + num >= board.rowSize:
             return False
         color = board.b[row+1][col]
@@ -100,14 +124,16 @@ class easy:
         for i in range(row+1, row+num+1):
             if board.b[i][col] != color:
                 return False
-        return True
+        if c == board.blank or c == color:
+            return True
+        return False
 
 #Diagonal Left checks-------------------------------------------------------------------------------------------------------------------
 
-    def diagonalLeft(self, board, row, col, num):
+    def diagonalLeft(self, board, row, col, num, color):
         for i in range(3, -4, -1):
             if row+i >= 0 and row+i < board.rowSize and col+i >= 0 and col+i < board.colSize:
-                if self.diagonalLeftCheck(board, row+i, col+i, num):
+                if self.diagonalLeftCheck(board, row+i, col+i, num, color):
                     return [True, self.diagonalLeftFindBlank(board, row+i, col+i)]
         return [False, -1]
 
@@ -118,7 +144,7 @@ class easy:
                 return col-i
         return -1
 
-    def diagonalLeftCheck(self, board, row, col, num):
+    def diagonalLeftCheck(self, board, row, col, num, color):
         if row + 3 >= board.rowSize:
             return False
         if col - num < 0:
@@ -134,19 +160,21 @@ class easy:
             else:
                 blueC += 1
         if redC >= num and blueC == 0:
-            return True
+            if color == board.blank or color == board.red:
+                return True
         if blueC >= num and redC == 0:
-            return True
+            if color == board.blank or color == board.blue:
+                return True
         return False
 
 
 #Diagonal Right checks-------------------------------------------------------------------------------------------------------------------
 
     #finds diagonal right num in a row
-    def diagonalRight(self, board, row, col, num):
+    def diagonalRight(self, board, row, col, num, color):
         for i in range(3, -4, -1):
             if row+i >= 0 and row+i < board.rowSize and col+i >= 0 and col+i < board.colSize:
-                if self.diagonalRightCheck(board, row+i, col+i, num):
+                if self.diagonalRightCheck(board, row+i, col+i, num, color):
                     return [True, self.diagonalRightFindBlank(board, row+i, col+i)]
         return [False, -1]
 
@@ -156,7 +184,7 @@ class easy:
                 return col+i
         return -1
 
-    def diagonalRightCheck(self, board, row, col, num):
+    def diagonalRightCheck(self, board, row, col, num, color):
         if row + 3 >= board.rowSize:
             return False
         if col + 3 >= board.colSize:
@@ -172,9 +200,11 @@ class easy:
             else:
                 blueC += 1
         if redC >= num and blueC == 0:
-            return True
+            if color == board.blank or color == board.red:
+                return True
         if blueC >= num and redC == 0:
-            return True
+            if color == board.blank or color == board.blue:
+                return True
         return False
 
 
