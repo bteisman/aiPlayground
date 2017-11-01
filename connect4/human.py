@@ -1,7 +1,7 @@
 from board import board
 
 class human:
-	def ai(self, board):
+	def ai(self, board, color):
 		col = raw_input("Choose col: ")
 		try:
 			c = int(col)

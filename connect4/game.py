@@ -85,12 +85,12 @@ def winnerMultiple(color, red, blue, board):
 #ai playable version of connect 4, can change ai in player 1 and player 2
 def ai():
     #player 1, color red, must have function ai(board)
-    one = randobot()
-    red = "randobot"
+    one = mediumThreat()
+    red = "mediumThreat"
 
     #player 2, color blue, must have function ai(board)
-    two = medium()
-    blue = "medium"
+    two = human()
+    blue = "human"
 
     #default board
     b = board(6, 7)
@@ -102,6 +102,7 @@ def ai():
     while not b.gameOver:
         b.updateBoard(player.ai(b, color), color)
         b.checkGame()
+        b.printBoard()
         update = changePlayer(player, one, two, b)
         player = update[0]
         color = update[1]
@@ -239,6 +240,6 @@ def gauntlet(t, numGames):
 
 #main
 #aiMultipleGames(1000)
-#ai()
-gauntlet("randobot", 1000)
+ai()
+#gauntlet("randobot", 1000)
 
